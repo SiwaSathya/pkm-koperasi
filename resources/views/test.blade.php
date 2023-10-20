@@ -581,4 +581,11 @@
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
+@push('scripts')
+<script src={{asset("asset/plugins/jqvmap/jquery.vmap.min.js")}}></script>
+<script src={{asset("asset/plugins/jqvmap/maps/jquery.vmap.usa.js")}}></script>
+<!-- jQuery Knob Chart -->
+<script src={{asset("asset/plugins/jquery-knob/jquery.knob.min.js")}}></script>
+<script src={{asset("asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
+@endpush
 @endsection

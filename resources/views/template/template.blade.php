@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>{{$tittle}}</title>
 
+  @stack('css')
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -44,24 +45,7 @@
   <!-- Main Sidebar Container -->
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+
 
     <!-- Main content -->
    @yield('content')
@@ -96,13 +80,13 @@
 <script src={{asset("asset/plugins/bootstrap/js/bootstrap.bundle.min.js")}}></script>
 <!-- ChartJS -->
 <script src={{asset("asset/plugins/chart.js/Chart.min.js")}}></script>
+
+@stack('scripts')
+
 <!-- Sparkline -->
 <script src={{asset("asset/plugins/sparklines/sparkline.js")}}></script>
 <!-- JQVMap -->
-<script src={{asset("asset/plugins/jqvmap/jquery.vmap.min.js")}}></script>
-<script src={{asset("asset/plugins/jqvmap/maps/jquery.vmap.usa.js")}}></script>
-<!-- jQuery Knob Chart -->
-<script src={{asset("asset/plugins/jquery-knob/jquery.knob.min.js")}}></script>
+
 <!-- daterangepicker -->
 <script src={{asset("asset/plugins/moment/moment.min.js")}}></script>
 <script src={{asset("asset/plugins/daterangepicker/daterangepicker.js")}}></script>
@@ -111,7 +95,7 @@
 <!-- Summernote -->
 <script src={{asset("asset/plugins/summernote/summernote-bs4.min.js")}}></script>
 <!-- overlayScrollbars -->
-<script src={{asset("asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}></script>
+
 <!-- AdminLTE App -->
 <script src={{asset("asset/dist/js/adminlte.js")}}></script>
 <!-- AdminLTE for demo purposes -->

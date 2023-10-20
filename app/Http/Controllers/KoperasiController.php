@@ -14,7 +14,7 @@ class KoperasiController extends Controller
     public function index()
     {
         $tittle = "test";
-        return view('test', with(['tittle' => $tittle]));
+        return view('admin-user.form', with(['tittle' => $tittle]));
     }
 
     /**
