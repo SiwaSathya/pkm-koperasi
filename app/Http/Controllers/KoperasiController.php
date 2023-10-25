@@ -14,7 +14,7 @@ class KoperasiController extends Controller
     public function index()
     {
         $tittle = "test";
-        return view('admin-user.form', with(['tittle' => $tittle]));
+        return view('admin-user.index', with(['tittle' => $tittle]));
     }
 
     /**
@@ -24,7 +24,8 @@ class KoperasiController extends Controller
      */
     public function create()
     {
-        //
+          $tittle = "Laporan";
+          return view('admin-user.laporan-template', with(['tittle' => $tittle]));
     }
 
     /**
