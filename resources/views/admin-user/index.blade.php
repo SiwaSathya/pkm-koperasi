@@ -132,9 +132,9 @@
 <script src={{asset("asset/plugins/datatables-buttons/js/buttons.print.min.js")}}></script>
 <script src={{asset("asset/plugins/datatables-buttons/js/buttons.colVis.min.js")}}></script>
 
-<script src={{asset("asset/dist/js/adminlte.min.js?v=3.2.0")}}></script>
+<!-- <script src={{asset("asset/dist/js/adminlte.min.js?v=3.2.0")}}></script>
 
-<script src={{asset("asset/dist/js/demo.js")}}></script>
+<script src={{asset("asset/dist/js/demo.js")}}></script> -->
 
 <script>
   $(function () {
