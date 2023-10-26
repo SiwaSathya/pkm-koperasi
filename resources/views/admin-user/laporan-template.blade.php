@@ -27,7 +27,7 @@
     <body class="container">
         <!-- resources/views/multiple-file-upload.blade.php -->
         <form action="" method="POST" enctype="multipart/form-data"  >
-            <div class="d-flex flex-column border p-5 rounded" style="max-width: 500px;margin:50px auto;">
+            <div class="d-flex flex-column p-5" style="max-width: 500px;margin:50px auto;">
             @csrf
             <h5  class="mb-4">Fitur Multi Upload</h5>
                 <!-- First File Input Field -->
@@ -36,16 +36,18 @@
                     <button id="addFileInput" class="btn btn-primary" style="max-width: 40px;" type="button">+</button>
                 </div>
 
-                <div class="form-group more-input border shadow p-3 rounded mb-5">
+                <div class="form-group more-input ">
+                  <div class="border shadow p-3 mb-3 rounded ">
                     <div class="col-md-15 mb-3 ">
-                        <label for="validationCustom01">First name</label>
-                        <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
-                      </div>
+                      <label for="validationCustom01">First name</label>
+                      <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                    </div>
                     <label for="exampleFormControlTextarea1">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    <div class="mb-3">
-                        <label for="form-file" class="form-label">File Input</label>
-                        <input type="file" class="form-control" name="file[]">
+                    <textarea class="form-control mb-2" id="exampleFormControlTextarea1" rows="3"></textarea>
+                      <div class="mb-3">
+                          <label for="form-file" class="form-label">File Input</label>
+                          <input type="file" class="form-control" name="file[]">
+                      </div>
                     </div>
                   </div>
                 <!-- class:more-input -->
@@ -71,14 +73,22 @@
                     element.addEventListener("click", function () {
 
                     const newFileInput = document.createElement("div");
-                    newFileInput.classList.add("mb-3", "border", "shadow", "p-2");
+                    newFileInput.classList.add("mb-3", "border", "shadow", "px-3","py-2", "rounded");
                     
+                    const label2 = document.createElement("label");
+                    label2.setAttribute("for", "Input");
+                    label2.textContent = "Input";
+
+                    const input2 = document.createElement("input");
+                    input2.classList.add("form-control","mb-2");
+                    input2.setAttribute("id", "exampleFormControlinput1");
+
                     const label1 = document.createElement("label");
                     label1.setAttribute("for", "exampleFormControlTextarea1");
                     label1.textContent = "Example textarea";
 
                     const textarea = document.createElement("textarea");
-                    textarea.classList.add("form-control");
+                    textarea.classList.add("form-control","mb-2");
                     textarea.setAttribute("id", "exampleFormControlTextarea1");
                     textarea.rows = 3;
 
@@ -88,11 +98,13 @@
                     label.textContent = "File Input";
 
                     const input = document.createElement("input");
-                    input.classList.add("form-control");
+                    input.classList.add("form-control","mb-4");
                     input.type = "file";
                     // input.setAttribute("id", "addFileInput");
                     input.setAttribute("name", "file[]");
-                    
+
+                    newFileInput.appendChild(label2);
+                    newFileInput.appendChild(input2);
                     newFileInput.appendChild(label1);
                     newFileInput.appendChild(textarea);
                     newFileInput.appendChild(label);
