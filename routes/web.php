@@ -14,6 +14,11 @@ use App\Http\Controllers\KoperasiController;
 |
 */
 
-
-
 Route::resource('koperasi', KoperasiController::class);
+
+Route::get('/get', function() {
+ $data = [
+  'tittle' => 'test'
+ ];
+ return view('template-frontend.form', $data);
+});
