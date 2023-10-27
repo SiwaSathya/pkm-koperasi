@@ -31,3 +31,11 @@ Route::resources([
 
 
 Route::get('/pelaporan-detail/{id}', [PelaporanController::class, 'detail'])->name('pelaporan.detail');
+Route::resource('koperasi', KoperasiController::class);
+
+Route::get('/get', function() {
+ $data = [
+  'tittle' => 'test'
+ ];
+ return view('template-frontend.form', $data);
+});
