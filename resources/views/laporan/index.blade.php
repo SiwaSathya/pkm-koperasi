@@ -20,7 +20,7 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
     <div class="content-wrapper">
-    
+
     <section class="content-header">
     <div class="container-fluid">
     <div class="row mb-2">
@@ -36,20 +36,20 @@
     </div>
     </div>
     </section>
-    
+
     <section class="content">
     <div class="container-fluid">
     <div class="row">
     <div class="col-12">
     <div class="card">
     <div class="card-header">
-    
-    
+
+
     <div class="card">
     <div class="card-header">
     <h3 class="card-title">DataTable with default features</h3>
     </div>
-    
+
     <div class="card-body">
     <table id="example1" class="table table-bordered table-striped">
     <thead>
@@ -57,17 +57,25 @@
     <th>Rendering engine</th>
     <th>Browser</th>
     <th>Platform(s)</th>
-    <th>Engine version</th>
+    <th>Engine version</tsh>
     <th>CSS grade</th>
+    <th>Aksi</th>
     </tr>
     </thead>
     <tbody>
 
-    <td>Other browsers</td>
-    <td>All others</td>
-    <td>-</td>
-    <td>-</td>
-    <td>U</td>
+    @foreach ($pelaporans as $pelaporan)
+    <tr>
+    <td>{{ $pelaporan->keterangan }}</td>
+    <td>{{ $pelaporan->file }}</td>
+    <td>test</td>
+    <td>test</td>
+    <td>test</td>
+    <td>
+        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+    </td>
+    </tr>
+    @endforeach
     </tr>
     </tbody>
     <tfoot>
@@ -81,32 +89,25 @@
     </tfoot>
     </table>
     </div>
-    
+
     </div>
-    
+
     </div>
-    
+
     </div>
-    
+
     </div>
-    
+
     </section>
-    
+
     </div>
-    
-    <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-    <b>Version</b> 3.2.0
-    </div>
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-    </footer>
-    
+
     <aside class="control-sidebar control-sidebar-dark">
-    
+
     </aside>
-    
+
 </div>
-    
+
     </section>
 </body>
 @endsection

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PelaporanBukti;
 use Illuminate\Http\Request;
-use App\Models\Pelaporan;
-use App\Models\Koperasi;
 
-class KoperasiController extends Controller
+class PelaporanBuktiController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -16,9 +14,7 @@ class KoperasiController extends Controller
      */
     public function index()
     {
-        $pelaporans = Pelaporan::get();
-        $tittle = "test";
-        return view('koperasi.index', with(['tittle' => $tittle]),  ['pelaporans'=>$pelaporans]);
+
     }
 
     /**
@@ -28,7 +24,7 @@ class KoperasiController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -45,10 +41,10 @@ class KoperasiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\PelaporanBukti  $pelaporanBukti
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(PelaporanBukti $pelaporanBukti)
     {
         //
     }
@@ -56,10 +52,10 @@ class KoperasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\PelaporanBukti  $pelaporanBukti
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(PelaporanBukti $pelaporanBukti)
     {
         //
     }
@@ -68,10 +64,10 @@ class KoperasiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\PelaporanBukti  $pelaporanBukti
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PelaporanBukti $pelaporanBukti)
     {
         //
     }
@@ -79,10 +75,10 @@ class KoperasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\PelaporanBukti  $pelaporanBukti
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PelaporanBukti $pelaporanBukti)
     {
         //
     }

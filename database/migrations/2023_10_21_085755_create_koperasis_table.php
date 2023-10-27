@@ -15,7 +15,7 @@ class CreateKoperasisTable extends Migration
     {
         Schema::create('koperasis', function (Blueprint $table)  {
             $table->id();
-            $table->string('nama', 200)->nullable();
+            $table->foreignID('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->date('badan_hukum_tanggal')->nullable();
             $table->string('badan_hukum_nomor', 200)->nullable();
             $table->enum('badan_hukum_pengesahan_id', [
@@ -36,7 +36,6 @@ class CreateKoperasisTable extends Migration
             $table->string('no_hp', 20)->nullable();
             $table->string('no_tlp', 20)->nullable();
             $table->string('no_fax', 20)->nullable();
-            $table->string('email', 200)->nullable();
             $table->string('website', 200)->nullable();
             $table->text('catatan');
             $table->enum('status_koperasi', ['1. Aktif', '2. Tidak Aktif'])->nullable();
