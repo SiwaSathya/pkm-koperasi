@@ -46,7 +46,7 @@ class CreateKoperasisTable extends Migration
             $table->enum('jenis', ['Komsumen', 'Pemasaran', 'Jasa', 'Produsen', 'Simpan Pinjam'])->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-            $table->integer('isakif')->nullable();
+            $table->integer('isaktif')->nullable();
         });
     }
 

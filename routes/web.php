@@ -6,6 +6,7 @@ use App\Http\Controllers\PelaporanBuktiController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LoginController;
 
 
 /*
@@ -21,17 +22,25 @@ use App\Http\Controllers\ProfileController;
 
 
 
-Route::resources([
-    'koperasi'=> KoperasiController::class,
-    'pelaporan'=> PelaporanController::class,
-    'pelaporan-bukti'=> PelaporanBuktiController::class,
-    'periode'=> PeriodeController::class,
-    'profile' => ProfileController::class,
-]);
-
-
+Route::middleware(['auth'])->group(function () {
+    Route::resource('koperasi', KoperasiController::class);
+    Route::resource('pelaporan', PelaporanController::class);
+    Route::resource('pelaporan-bukti', PelaporanBuktiController::class);
+    Route::resource('periode', PeriodeController::class);
+    Route::resource('profile', ProfileController::class);
+});
 Route::get('/pelaporan-detail/{id}', [PelaporanController::class, 'detail'])->name('pelaporan.detail');
-Route::resource('koperasi', KoperasiController::class);
+Route::get('/pelaporan-detail-api/{id}', [PelaporanController::class, 'detail_api']);
+Route::get('/periode-set-to-not-null', [PeriodeController::class, 'setDeletedatNotNull'])->name('periode.setToNotNull');
+Route::post('/show-laporan-not-null', [PelaporanController::class, 'showPelaporan'])->name('pelaporan.filters');
+Route::post('/laporan-update-approve', [PelaporanController::class, 'updateRevisi'])->name('pelaporan.approve');
+Route::post('/laporan-update-revisi', [PelaporanController::class, 'updateRevisiTrue'])->name('pelaporan.revisi');
+Route::get('/show-profile/{id}', [ProfileController::class, 'showDetail'])->name('profile.detail');
+Route::post('/update-revisi', [PelaporanController::class, 'updateRevisiToZero'])->name('update.revisi');
+Route::get('/', [LoginController::class, 'login'])->name('login');
+Route::post('/actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
+Route::get('/actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
+Route::post('/forget-password', [LoginController::class, 'forgetPassword'])->name('forget.password')->middleware('auth');
 
 Route::get('/get', function() {
  $data = [

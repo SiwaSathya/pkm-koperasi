@@ -9,4 +9,8 @@ class Periode extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function koperasi(){
+    	return $this->hasMany('App\Models\Pelaporan');
+    }
 }

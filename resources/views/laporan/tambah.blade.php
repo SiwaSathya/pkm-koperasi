@@ -20,10 +20,17 @@
         <link rel="stylesheet" href={{asset("asset/plugins/dropzone/min/dropzone.min.css")}}>
         <!-- Theme style -->
         <link rel="stylesheet" href={{asset("asset/dist/css/adminlte.min.css")}}>
+        <style>
+            .star::after{
+            content: " *";
+            color: red;
+            }
+        </style>
         @endpush
     </head>
 
 @section("content")
+@if(count($periode)>0 && $user->role != "admin")
     <body class="container">
         <!-- resources/views/multiple-file-upload.blade.php -->
         <form action="{{route('pelaporan.store')}}" method="POST" enctype="multipart/form-data"  >
@@ -42,27 +49,155 @@
                       <label for="validationCustom01">Judul</label>
                       <input name="judul[]" type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
                     </div> -->
-                    <label for="exampleFormControlTextarea1">Deskripsi</label>
-                    <textarea name="deskripsi[]" class="form-control mb-2" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label for="exampleFormControlTextarea1" class="star">Deskripsi</label>
+                    <textarea name="deskripsi[]" class="form-control mb-2" id="exampleFormControlTextarea1" rows="3" required></textarea>
                       <div class="mb-3">
-                          <label for="form-file" class="form-label">File Input</label>
-                          <input type="file" class="form-control" name="file[]">
+                          <label for="form-file" class="form-label star">File Input</label>
+                          <input type="file" class="form-control" name="file[]" required>
                       </div>
                     </div>
                   </div>
                 <!-- class:more-input -->
+
 
             <!-- Submit Button -->
             <button class="btn btn-primary" type="submit">Add File</button>
         </div>
 
         </form>
+@elseif($user->role == "admin")
+<div class="content-wrapper">
+
+    <section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>Anda Dilarang Ke Halaman Ini </h1>
+    </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item active">Blank Page</li>
+    </ol>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <section class="content">
+
+    <div class="card">
+    <div class="card-header">
+    <h3 class="card-title">Role Anda adalah admin</h3>
+    <div class="card-tools">
+    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+    <i class="fas fa-minus"></i>
+    </button>
+    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+    <i class="fas fa-times"></i>
+    </button>
+    </div>
+    </div>
+    <div class="card-body">
+        Hanya user koperasi saja yang bisa menambahkan pelaporan
+    </div>
+
+    <div class="card-footer">
+    Terima Kasih!
+    </div>
+
+    </div>
+
+    </section>
+
+    </div>
+
+    <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+    <b>Version</b> 3.2.0
+    </div>
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
+
+    <aside class="control-sidebar control-sidebar-dark">
+
+    </aside>
+
+    </div>
+
+@else
+        <div class="content-wrapper">
+
+            <section class="content-header">
+            <div class="container-fluid">
+            <div class="row mb-2">
+            <div class="col-sm-6">
+            <h1>Periode Belum Ditetapkan </h1>
+            </div>
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Blank Page</li>
+            </ol>
+            </div>
+            </div>
+            </div>
+            </section>
+
+            <section class="content">
+
+            <div class="card">
+            <div class="card-header">
+            <h3 class="card-title">Tidak bisa mengakses form untuk sekarang</h3>
+            <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+            </button>
+            </div>
+            </div>
+            <div class="card-body">
+            hubungi admin untuk info lebih lanjut!
+            </div>
+
+            <div class="card-footer">
+            Terima Kasih!
+            </div>
+
+            </div>
+
+            </section>
+
+            </div>
+
+            <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.2.0
+            </div>
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            </footer>
+
+            <aside class="control-sidebar control-sidebar-dark">
+
+            </aside>
+
+            </div>
+@endif
 
         @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".input-file-form").forEach(element => {
+                    if(element.querySelector('#button-remove-input-file')) {
+                        element.querySelector('#button-remove-input-file').addEventListener('click', () => {
+                        element.remove()
+                    });
+                    }
+                })
 
                 // const addFileInputButton =
                 // console.log(addFileInputButton);
@@ -71,9 +206,13 @@
 
                 document.querySelectorAll("#addFileInput").forEach(element => {
                     element.addEventListener("click", function () {
+                    const buttonDelete = document.createElement("img");
+                    buttonDelete.setAttribute("src", "/asset/dist/img/icon-x.svg");
+                    buttonDelete.setAttribute("id", "button-remove-input-file");
+                    buttonDelete.setAttribute("style", "right: 10px;width: 20px;top: 10px;position: absolute; cursor:pointer");
 
                     const newFileInput = document.createElement("div");
-                    newFileInput.classList.add("mb-3", "border", "shadow", "px-3","py-2", "rounded");
+                    newFileInput.classList.add("mb-3", "border", "shadow", "px-3","py-2", "rounded", "position-relative", "input-file-form");
 
                     // const label2 = document.createElement("label");
                     // label2.setAttribute("for", "Input");
@@ -87,22 +226,26 @@
 
                     const label1 = document.createElement("label");
                     label1.setAttribute("for", "exampleFormControlTextarea1");
+                    label1.setAttribute("class", "star");
                     label1.textContent = "Deskripsi";
 
                     const textarea = document.createElement("textarea");
                     textarea.classList.add("form-control","mb-2");
                     textarea.setAttribute("id", "exampleFormControlTextarea1");
-                    textarea.setAttribute("name", "deskripsi[]")
+                    textarea.setAttribute("name", "deskripsi[]");
+                    textarea.setAttribute("required", true);
                     textarea.rows = 3;
 
                     const label = document.createElement("label");
                     label.setAttribute("for", "formFile");
+                    label.setAttribute("class", "star");
                     label.classList.add("form-label");
                     label.textContent = "File Input";
 
                     const input = document.createElement("input");
                     input.classList.add("form-control","mb-4");
                     input.type = "file";
+                    textarea.setAttribute("required", true);
                     // input.setAttribute("id", "addFileInput");
                     input.setAttribute("name", "file[]");
 
@@ -112,13 +255,22 @@
                     newFileInput.appendChild(textarea);
                     newFileInput.appendChild(label);
                     newFileInput.appendChild(input);
+                    newFileInput.appendChild(buttonDelete);
 
                     // Append the new file input field to the container
                     moreInputContainer.appendChild(newFileInput);
-                });
+                    document.querySelectorAll(".input-file-form").forEach(element => {
+                            if(element.querySelector('#button-remove-input-file')) {
+                                element.querySelector('#button-remove-input-file').addEventListener('click', () => {
+                                element.remove()
+                            });
+                        }
+                        });
+                    });
                 });
             });
         </script>
+
 
         <!-- Select2 -->
         <script src={{asset("asset/plugins/select2/js/select2.full.min.js")}}></script>

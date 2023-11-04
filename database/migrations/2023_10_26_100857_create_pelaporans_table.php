@@ -18,7 +18,7 @@ class CreatePelaporansTable extends Migration
             $table->foreignID('periode_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignID('koperasi_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->text('keterangan');
-            $table->text('keterangan_verifikator');
+            $table->text('keterangan_verifikator')->nullable();
             $table->string('file');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

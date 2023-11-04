@@ -32,7 +32,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
-            <a href="{{route('pelaporan.index')}}" class="btn btn-primary btn-block mb-3">Back to Inbox</a>
+            <a href="javascript:history.back()"  class="btn btn-primary btn-block mb-3">Kembali Ke Halaman Awal</a>
 
             <div class="card">
               <div class="card-header">
@@ -48,29 +48,27 @@
                 <ul class="nav nav-pills flex-column">
                   <li class="nav-item active">
                     <a href="#" class="nav-link">
-                      <i class="fas fa-inbox"></i> Inbox
-                      <span class="badge bg-primary float-right">12</span>
+                      <i class="fas fa-inbox"></i> Coming Soon
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      <i class="far fa-envelope"></i> Sent
+                      <i class="far fa-envelope"></i> Coming Soon
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      <i class="far fa-file-alt"></i> Drafts
+                      <i class="far fa-file-alt"></i> Coming Soon
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      <i class="fas fa-filter"></i> Junk
-                      <span class="badge bg-warning float-right">65</span>
+                      <i class="fas fa-filter"></i> Coming Soon
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="#" class="nav-link">
-                      <i class="far fa-trash-alt"></i> Trash
+                      <i class="far fa-trash-alt"></i> Coming Soon
                     </a>
                   </li>
                 </ul>
@@ -92,13 +90,13 @@
               <div class="card-body p-0">
                 <ul class="nav nav-pills flex-column">
                   <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="far fa-circle text-danger"></i> Important</a>
+                    <a class="nav-link" href="#"><i class="far fa-circle text-danger"></i> Coming Soon</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="far fa-circle text-warning"></i> Promotions</a>
+                    <a class="nav-link" href="#"><i class="far fa-circle text-warning"></i> Coming Soon</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="far fa-circle text-primary"></i> Social</a>
+                    <a class="nav-link" href="#"><i class="far fa-circle text-primary"></i> Coming Soon</a>
                   </li>
                 </ul>
               </div>
@@ -110,7 +108,7 @@
         <div class="col-md-9">
           <div class="card card-primary card-outline">
             <div class="card-header">
-              <h3 class="card-title">Read Mail</h3>
+              <h3 class="card-title">Laporan</h3>
 
               <div class="card-tools">
                 <a href="#" class="btn btn-tool" title="Previous"><i class="fas fa-chevron-left"></i></a>
@@ -120,14 +118,17 @@
             <!-- /.card-header -->
             <div class="card-body p-0">
               <div class="mailbox-read-info">
-                <h5>Message Subject Is Placed Here</h5>
-                <h6>From: support@adminlte.io
-                  <span class="mailbox-read-time float-right">15 Feb. 2015 11:03 PM</span></h6>
+                <h5><b>Pelapor: </b> {{$pelaporans->koperasi->users->name}}</h5>
+                    @if($records != null)
+                  <span class="mailbox-read-time float-right">periode: {{$records->tgl_awal}} s/d {{$records->tgl_akhir}}</span></h6>
+                  @else
+                  <span class="mailbox-read-time float-right">periode: {{$periode->tgl_awal}} s/d {{$periode->tgl_akhir}}</span></h6>
+                  @endif
               </div>
               <!-- /.mailbox-read-info -->
-              <div class="mailbox-controls with-border text-center">
+              {{-- <div class="mailbox-controls with-border text-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm" data-container="body" title="Delete">
+                  <button type="button" class="btn btn-default btn- sm" data-container="body" title="Delete">
                     <i class="far fa-trash-alt"></i>
                   </button>
                   <button type="button" class="btn btn-default btn-sm" data-container="body" title="Reply">
@@ -141,70 +142,30 @@
                 <button type="button" class="btn btn-default btn-sm" title="Print">
                   <i class="fas fa-print"></i>
                 </button>
-              </div>
+              </div> --}}
               <!-- /.mailbox-controls -->
               <div class="mailbox-read-message">
-                <p>{{ $pelaporans->keterangan }}</p>
+                <p><b>Keterangan:</b> {{ $pelaporans->keterangan }}</p>
               </div>
               <!-- /.mailbox-read-message -->
             </div>
             <!-- /.card-body -->
-            <div class="card-footer bg-white">
-              <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
-                <li>
-                  <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
-
-                  <div class="mailbox-attachment-info">
-                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i> Sep2014-report.pdf</a>
-                        <span class="mailbox-attachment-size clearfix mt-1">
-                          <span>1,245 KB</span>
-                          <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-download-alt"></i></a>
-                        </span>
-                  </div>
-                </li>
-                <li>
-                  <span class="mailbox-attachment-icon"><i class="far fa-file-word"></i></span>
-
-                  <div class="mailbox-attachment-info">
-                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i> App Description.docx</a>
-                        <span class="mailbox-attachment-size clearfix mt-1">
-                          <span>1,245 KB</span>
-                          <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-download-alt"></i></a>
-                        </span>
-                  </div>
-                </li>
-                <li>
-                  <span class="mailbox-attachment-icon has-img"><img src="../../dist/img/photo1.png" alt="Attachment"></span>
-
-                  <div class="mailbox-attachment-info">
-                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-camera"></i> photo1.png</a>
-                        <span class="mailbox-attachment-size clearfix mt-1">
-                          <span>2.67 MB</span>
-                          <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-download-alt"></i></a>
-                        </span>
-                  </div>
-                </li>
-                <li>
-                  <span class="mailbox-attachment-icon has-img"><img src="../../dist/img/photo2.png" alt="Attachment"></span>
-
-                  <div class="mailbox-attachment-info">
-                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-camera"></i> photo2.png</a>
-                        <span class="mailbox-attachment-size clearfix mt-1">
-                          <span>1.9 MB</span>
-                          <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-download-alt"></i></a>
-                        </span>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <iframe src="{{ asset('storage/pdf/'.$pelaporans->file) }}" width="100%" height="800"></iframe>
             <!-- /.card-footer -->
             <div class="card-footer">
-              <div class="float-right">
-                <button type="button" class="btn btn-default"><i class="fas fa-reply"></i> Reply</button>
-                <button type="button" class="btn btn-default"><i class="fas fa-share"></i> Forward</button>
-              </div>
-              <button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> Delete</button>
-              <button type="button" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
+        @if($user->role == 'admin')
+            @if($pelaporans->status == 0 || $pelaporans->status == 2)
+              <button class="btn btn-success" id="btnStart" type="button" data-toggle="modal" data-target="#formModal1"><i class="far fa-check-circle" ></i> Approve</button>
+              <button class="btn btn-warning" id="btnStart" type="button" data-toggle="modal" data-target="#formModal2"><i class="fas fa-print"></i> Revisi</button>
+            @else
+            <button class="btn btn-success" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Approved</button>
+            @endif
+        @elseif($user->role == 'user' && $pelaporans->status == 1)
+            <button class="btn btn-success" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Approved</button>
+        @elseif($user->role == 'user' && $pelaporans->status == 2)
+            <button class="btn btn-warning" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Revisi</button>
+        @endif
+
             </div>
             <!-- /.card-footer -->
           </div>
@@ -217,17 +178,85 @@
     </section>
     <!-- /.content -->
   </div>
+  <div class="modal fade" id="formModal1" tabindex="-1" role="dialog" aria-labelledby="formModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h3 class="modal-title" id="formModalLabel">Berikan Keterangan <br> <b>DISETUJUI</b></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="formPeminjaman" method="post" action="{{route('pelaporan.approve')}}" enctype="multipart/form-data">
+          <div class="modal-body">
+          @csrf
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <input type="hidden" value="{{$pelaporans->id}}" name="id" class="form-control" id="firstName" required>
+            </div>
+          </div>
+            <div class="form-group row">
+              <label for="firstName" class="col-sm-5 ml-5 col-form-label">
+               Keterangan Verifikator
+              </label>
+              <div class="col-sm-6">
+                <input type="text" name="keterangan" class="form-control" id="firstName" placeholder="Masukan Keterangan" required>
+              </div>
+            </div>
+            <div class="form-check">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+            <button type="reset" class="btn btn-warning">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="formModal2" tabindex="-1" role="dialog" aria-labelledby="formModal2Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h3 class="modal-title" id="formModalLabel">Berikan Keterangan <br> <b>REVISI</b></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="formPeminjaman" method="post" action="{{route('pelaporan.revisi')}}" enctype="multipart/form-data">
+          <div class="modal-body">
+          @csrf
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <input type="hidden" value="{{$pelaporans->id}}" name="id" class="form-control" id="firstName" required>
+            </div>
+          </div>
+            <div class="form-group row">
+              <label for="firstName" class="col-sm-5 ml-5 col-form-label">
+               Keterangan Verifikator
+              </label>
+              <div class="col-sm-6">
+                <input type="text" name="keterangan" class="form-control" id="firstName" placeholder="Masukan Keterangan" required>
+              </div>
+            </div>
+            <div class="form-check">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+            <button type="reset" class="btn btn-warning">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 @endsection
 
 @push('script')
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 
-
-
-
-
-
-
-<script src={{asset("asset/dist/js/demo.js")}}></script>
 @endpush

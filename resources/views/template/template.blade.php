@@ -1,4 +1,5 @@
 
+@include('sweetalert::alert')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,9 +33,9 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  {{-- <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src={{asset("asset/dist/img/AdminLTELogo.png")}} alt="AdminLTELogo" height="60" width="60">
-  </div>
+  </div> --}}
 
   <!-- Navbar -->
   @include("template.partial.navbar")
@@ -99,7 +100,6 @@
 <!-- AdminLTE App -->
 <script src={{asset("asset/dist/js/adminlte.js")}}></script>
 <!-- AdminLTE for demo purposes -->
-<script src={{asset("asset/dist/js/demo.js")}}></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src={{asset("asset/dist/js/pages/dashboard.js")}}></script>
 </body>
