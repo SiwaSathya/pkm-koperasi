@@ -43,9 +43,9 @@ Route::get('/actionlogout', [LoginController::class, 'actionlogout'])->name('act
 Route::post('/forget-password', [LoginController::class, 'forgetPassword'])->name('forget.password')->middleware('auth');
 Route::get("/pelaporan-koperasi/{id}", [PelaporanController::class, 'koperasiLaporan'])->name('pelaporan.koperasi')->middleware('auth');
 
-Route::get('/get', function() {
- $data = [
-  'tittle' => 'test'
- ];
- return view('template-frontend.form', $data);
-});
+// Route::get('/get', function() {
+//  $data = [
+//   'tittle' => 'test'
+//  ];
+//  return view('template-frontend.form', $data);
+// });
