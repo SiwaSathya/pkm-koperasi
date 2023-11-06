@@ -45,7 +45,34 @@ class PelaporanController extends Controller
         // return view('laporan.detail', with(['tittle'=>$tittle]), ['pelaporans'=>$pelaporans, 'records'=> $records, 'periode'=>$periode, 'user'=>$user, 'profile'=>$profile]);
      }
 
-    public function index()
+
+    public function index(){
+        $user = auth()->user();
+        if ($user->role == 'user'){
+            $koperasi = Koperasi::where('user_id', $user->id)->first();
+            return redirect()->route('profile.detail',['id' => $koperasi->id]);
+        }
+        $koperasis =  Koperasi::get();
+        $koperasisLaporanNull = Koperasi::whereHas('pelaporan', function ($query) {
+            $query->whereHas('periode', function ($subQuery) {
+                $subQuery->whereNull('deleted_at');
+            });
+        })->get();
+        $pelaporanData = Pelaporan::whereIn('koperasi_id', $koperasis->pluck('id'))->get();
+        $periode_id = "0";
+        $periode = Periode::where('id', $periode_id)->first();
+        $tittle = "Pelaporan";
+        $records = Periode::whereNull('deleted_at')->first();
+        $title = 'Akhiri Periode';
+        $text = "Apakah anda yakin untuk mengakhiri periode?";
+        $periodenotnull = Periode::whereNotNull('deleted_at')->get();
+        confirmPeriode($title, $text);
+        return view('laporan.index', ['pelaporanData' => $pelaporanData, 'koperasis' => $koperasis, 'records' => $records, 'periodenotnull' => $periodenotnull, 'periode' => $periode, 'tittle' => $tittle, 'user' => $user, 'koperasisLaporanNull' => $koperasisLaporanNull]);
+
+
+    }
+
+    public function koperasiLaporan($id)
     {
         $active = "active";
         $user = auth()->user();
@@ -56,18 +83,18 @@ class PelaporanController extends Controller
         }
         $pelaporans = Pelaporan::whereHas('periode', function ($query) {
             $query->whereNull('deleted_at');
-        })->get();
-        $pelaporanAll = Pelaporan::get();
+        })->where('koperasi_id', '=', $id)->get();
+        $pelaporanAll = Pelaporan::where('koperasi_id', $id)->get();
         // dd($pelaporanAll);
         $periode_id = "0";
         $periode = Periode::where('id', $periode_id)->first();
-        $tittle = "test";
+        $tittle = "Pelaporan";
         $records = Periode::whereNull('deleted_at')->first();
         $title = 'Akhiri Periode';
         $text = "Apakah anda yakin untuk mengakhiri periode?";
         $periodenotnull = Periode::whereNotNull('deleted_at')->get();
         confirmPeriode($title, $text);
-        return view('laporan.index', with(['tittle' => $tittle]), ['pelaporans'=>$pelaporans, 'records'=> $records, 'periodenotnull' => $periodenotnull, 'periode' => $periode, 'pelaporanAll' => $pelaporanAll, 'user'=>$user, 'active' => $active, 'profile' => $profile]);
+        return view('laporan.koperasi', with(['tittle' => $tittle]), ['pelaporans'=>$pelaporans, 'records'=> $records, 'periodenotnull' => $periodenotnull, 'periode' => $periode, 'pelaporanAll' => $pelaporanAll, 'user'=>$user, 'active' => $active, 'profile' => $profile, 'id' => $id]);
     }
 
     /**
@@ -80,7 +107,7 @@ class PelaporanController extends Controller
         $user = auth()->user();
         $profile = Koperasi::where('user_id', $user->id)->first();
         $periode = Periode::whereNull('deleted_at')->get();
-        $tittle = "Laporan";
+        $tittle = "Tambah Lapoaran";
         return view('laporan.tambah', with(['tittle' => $tittle]) ,['periode' => $periode, 'user' => $user, 'profile' => $profile]);
     }
 
@@ -148,30 +175,26 @@ class PelaporanController extends Controller
         ]);
         Alert::success('Berhasil', 'Laporan Berhasil Diupdate');
         return redirect()->back();
-
-
-
-
-
-
     }
 
-    public function showPelaporan(Request $request)
+    public function showPelaporan(Request $request, $id)
     {
         $user = auth()->user();
         if($request->periode_id == ""){
-            return redirect()->route('pelaporan.index');
+            return redirect()->route('pelaporan.koperasi',['id' => $id]);
         }
         $tittle = "Detail Laporan";
 
-        $pelaporanAll = Pelaporan::where('periode_id', $request->periode_id)->get();
+        $pelaporanAll = Pelaporan::where('periode_id', $request->periode_id)
+         ->where('koperasi_id', $id)
+         ->get();
         $records = Periode::whereNull('deleted_at')->first();
         $periode = Periode::where('id', $request->periode_id)->first();
         $title = 'Akhiri Periode';
         $text = "Apakah anda yakin untuk mengakhiri periode?";
         confirmPeriode($title, $text);
         $periodenotnull = Periode::whereNotNull('deleted_at')->get();
-        return view('laporan.index', with(['tittle' => $tittle]), ['pelaporanAll'=>$pelaporanAll, 'records'=> $records, 'periodenotnull' => $periodenotnull, 'periode' => $periode, 'user' => $user]);
+        return view('laporan.koperasi', with(['tittle' => $tittle]), ['pelaporanAll'=>$pelaporanAll, 'records'=> $records, 'periodenotnull' => $periodenotnull, 'periode' => $periode, 'user' => $user, 'id' => $id]);
     }
 
     /**
@@ -184,7 +207,6 @@ class PelaporanController extends Controller
     {
         $user = auth()->user();
         $profile = Koperasi::where('user_id', $user->id)->first();
-        if($request !=null){
         $validator = Validator::make(
           $request -> all(),
         [
@@ -238,9 +260,6 @@ class PelaporanController extends Controller
     Alert::error('Gagal', 'Laporan Gagal Ditambahkan: ' . $e->getMessage());
     return redirect()->back();
     }
-}else{
-     return redirect()->back();
-}
     }
 
     /**

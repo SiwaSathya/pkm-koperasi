@@ -113,30 +113,70 @@
 @elseif(!empty($records) || empty($periode))
 <a href="{{route('periode.setToNotNull')}}" class="btn btn-danger" data-confirm-periode="true">Akhiri Periode</a>
 @endif
+@if($records == null)
+<form action="{{route('pelaporan.filters', ['id' => $id])}}" method="POST"  enctype="multipart/form-data">
+    @csrf
+<div class="form-group" style="max-width: 20%;  text-align:center; margin:auto;">
+    <label class="mt-2" for="selectData">Pilih Filter Periode:</label>
+    <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="selectData" name="periode_id">
+        <option value="">Tampilkan Semua</option>
+        @foreach ($periodenotnull as $data)
+            <option value="{{ $data->id }}">{{ $data->tgl_awal }} s/d {{$data->tgl_akhir}}</option>
+        @endforeach
+    </select>
+    <button type="submit" class="btn btn-primary mt-3">Filter</button>
+</div>
+</form>
+@endif
     <div class="card-body">
     <table id="example1" class="table table-bordered table-striped">
     <thead>
     <tr>
     <th>Nama Koperasi</th>
-    <th style="width: 10%">Aksi</th>
+    <th>Periode</th>
+    <th>Keterangan</th>
+    <th>File</th>
+    <th>Aksi</th>
     </tr>
     </thead>
     <tbody>
 @if(!empty($records))
-    @foreach ($koperasisLaporanNull as $koperasi)
+    @foreach ($pelaporans as $pelaporan)
     <tr>
-        <td>{{ $koperasi->users->name}}</td>
-        <td>
-            <a href="{{ route('pelaporan.koperasi', ['id' => $koperasi->id]) }}"><button type="button" class="btn btn-info">lihat Pelaporan</button></a>
-        </td>
-        </tr>
+    <td>{{ $pelaporan->koperasi->users->name }}</td>
+    <td>{{$pelaporan->periode->tgl_awal}} s/d {{$pelaporan->periode->tgl_akhir}}</td>
+    <td>{{ $pelaporan->keterangan }}</td>
+    <td>{{ $pelaporan->file }}</td>
+    <td>
+        @if ( $pelaporan->status == 1)
+        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+        <button class="btn btn-success" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Disetujui</button>
+        @elseif ($pelaporan->status == 2)
+        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+        <button class="btn btn-warning" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Revisi</button>
+        @else
+        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+        @endif
+    </td>
+    </tr>
     @endforeach
 @else
-@foreach ($koperasis as $koperasi)
+@foreach ($pelaporanAll as $pelaporan)
 <tr>
-<td>{{ $koperasi->users->name}}</td>
-<td style="width: 10%">
-    <a href="{{ route('pelaporan.koperasi', ['id' => $koperasi->id]) }}"><button type="button" class="btn btn-info">lihat Pelaporan</button></a>
+<td>{{ $pelaporan->koperasi->users->name}}</td>
+<td>{{$pelaporan->periode->tgl_awal}} s/d {{$pelaporan->periode->tgl_akhir}}</td>
+<td>{{ $pelaporan->keterangan }}</td>
+<td>{{ $pelaporan->file }}</td>
+<td>
+    @if ( $pelaporan->status == 1)
+    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+    <button class="btn btn-success" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Approved</button>
+    @elseif ($pelaporan->status == 2)
+    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+    <button class="btn btn-warning" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Revisi</button>
+    @else
+    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+    @endif
 </td>
 </tr>
 @endforeach
@@ -146,7 +186,10 @@
     <tfoot>
     <tr>
     <th>Nama Koperasi</th>
-    <th style="width: 10%">Aksi</th>
+    <th>Periode</th>
+    <th>Keterangan</th>
+    <th>File</th>
+    <th>Aksi</th>
     </tr>
     </tfoot>
     </table>

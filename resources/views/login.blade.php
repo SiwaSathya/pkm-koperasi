@@ -34,7 +34,7 @@
 				<form class="login100-form validate-form" method="post" action="{{route('actionlogin')}}">
                     @csrf
 					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"><img src={{asset("asset/images/koperasi.png")}} class="max-width:50pz" alt=""></i>
+						<img src={{asset("asset/images/koperasi.png")}} width="200" height="200" alt="" style="margin-top: 50%">
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27" style="margin-top: 30%">
@@ -51,12 +51,12 @@
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
-					<div class="contact100-form-checkbox">
+					{{-- <div class="contact100-form-checkbox">
 						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 						<label class="label-checkbox100" for="ckb1">
 							Remember me
 						</label>
-					</div>
+					</div> --}}
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
@@ -64,11 +64,11 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-90">
+					{{-- <div class="text-center p-t-90">
 						<a class="txt1" href="#">
 							Forgot Password?
 						</a>
-					</div>
+					</div> --}}
 				</form>
 			</div>
 		</div>
