@@ -78,7 +78,7 @@ class PeriodeController extends Controller
             $data->update(['deleted_at' => Carbon::now()]);
         }
 
-        return redirect()->back();
+        return redirect()->route("pelaporan.index");
     }
 
     /**

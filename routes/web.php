@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/pelaporan-detail/{id}', [PelaporanController::class, 'detail'])->name('pelaporan.detail');
 Route::get('/pelaporan-detail-api/{id}', [PelaporanController::class, 'detail_api']);
 Route::get('/periode-set-to-not-null', [PeriodeController::class, 'setDeletedatNotNull'])->name('periode.setToNotNull');
-Route::post('/show-laporan-not-null', [PelaporanController::class, 'showPelaporan'])->name('pelaporan.filters');
+Route::post('/show-laporan-not-null/{id}', [PelaporanController::class, 'showPelaporan'])->name('pelaporan.filters');
 Route::post('/laporan-update-approve', [PelaporanController::class, 'updateRevisi'])->name('pelaporan.approve');
 Route::post('/laporan-update-revisi', [PelaporanController::class, 'updateRevisiTrue'])->name('pelaporan.revisi');
 Route::get('/show-profile/{id}', [ProfileController::class, 'showDetail'])->name('profile.detail');
@@ -41,6 +41,7 @@ Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('/actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 Route::get('/actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
 Route::post('/forget-password', [LoginController::class, 'forgetPassword'])->name('forget.password')->middleware('auth');
+Route::get("/pelaporan-koperasi/{id}", [PelaporanController::class, 'koperasiLaporan'])->name('pelaporan.koperasi')->middleware('auth');
 
 Route::get('/get', function() {
  $data = [

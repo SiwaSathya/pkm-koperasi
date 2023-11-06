@@ -31,10 +31,10 @@
 
 @section("content")
 @if(count($periode)>0 && $user->role != "admin")
-    <body class="container">
+    <body class="">
         <!-- resources/views/multiple-file-upload.blade.php -->
         <form action="{{route('pelaporan.store')}}" method="POST" enctype="multipart/form-data"  >
-            <div class="d-flex flex-column p-5 shadow rounded" style="max-width: 500px;margin:50px auto;">
+            <div class="d-flex flex-column p-5 shadow rounded" style="max-width: 80%; margin:50px auto; margin-left:17%;">
             @csrf
             <h5  class="mb-4">Fitur Multi Upload</h5>
                 <!-- First File Input Field -->

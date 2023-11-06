@@ -366,7 +366,7 @@
     async function formEdit(id) {
 
         // alert(id)
-        const response = await fetch("http://127.0.0.1:8000/pelaporan-detail-api/"+id);
+        const response = await fetch(env("KOPERASI_API")+"/pelaporan-detail-api/"+id);
         const data = await response.json();
 
         let idPelaporan = data.pelaporans.id;
