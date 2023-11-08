@@ -29,7 +29,7 @@ class KoperasiController extends Controller
             return redirect()->route('profile.detail',['id' => $koperasi->id]);
         }
         $koperasis = Koperasi::get();
-        $tittle = "test";
+        $tittle = "Koperasi";
         return view('koperasi.index', ['tittle' => $tittle, 'koperasis' => $koperasis, 'user' => $user, 'profile' => $profile]);
     }
 

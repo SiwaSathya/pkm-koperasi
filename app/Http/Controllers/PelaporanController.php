@@ -173,6 +173,8 @@ class PelaporanController extends Controller
             'file' => $filename,
             'status'=> 0,
         ]);
+
+
         Alert::success('Berhasil', 'Laporan Berhasil Diupdate');
         return redirect()->back();
     }
