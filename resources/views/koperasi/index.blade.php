@@ -277,7 +277,7 @@
             <option selected="selected" disabled>Pilih Bentuk Koperasi</option>
             <option value="Primer Nasional">Primer Nasional</option>
             <option value="Primer Provinsi">Primer Provinsi</option>
-            <option value="Primer Kab/Kota">PePrimer Kab/Kota</option>
+            <option value="Primer Kab/Kota">Primer Kab/Kota</option>
             <option value="Sekunder Kab/Kota">Sekunder Kab/Kota</option>
             </select>
             </div>

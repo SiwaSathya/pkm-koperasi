@@ -241,6 +241,8 @@
 </div>
 
 
+<div id="env-data" data-api="{{ env('KOPERASI_API') }}"></div>
+
 
 
 
@@ -364,9 +366,11 @@
 
 <script>
     async function formEdit(id) {
+        var envDataElement = document.getElementById('env-data');
+        var apiURL = envDataElement.getAttribute('data-api');
 
         // alert(id)
-        const response = await fetch(env("KOPERASI_API")+"/pelaporan-detail-api/"+id);
+        const response = await fetch(apiURL+"/pelaporan-detail-api/"+id);
         const data = await response.json();
 
         let idPelaporan = data.pelaporans.id;
