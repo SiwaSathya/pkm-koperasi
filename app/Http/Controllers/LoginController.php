@@ -25,7 +25,7 @@ class LoginController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            return redirect('pelaporan.index');
+            return redirect()->route('pelaporan.index');
         }else{
             return view('login');
         }
@@ -80,9 +80,12 @@ class LoginController extends Controller
         $user->password = Hash::make($request->input('new_password'));
          // Mengganti password
         $user->save();
-
+        Alert::success('Berhasil', 'Kata Sandi Berhasil Diubah');
         Auth::logout(); // Logout penggunaa
         return redirect('/')->with('success', 'Password berhasil diubah dan Anda telah logout.');
+    }else{
+        Alert::error('Gagal', 'Gagal Merubah Password');
+        return redirect()->back();
     }
 
     return redirect()->route('koperasi.index');;

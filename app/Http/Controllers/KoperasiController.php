@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Koperasi;
-use Illuminate\Support\Facades\Validator;
-use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Periode;
+use App\Models\Koperasi;
+use App\Models\Pelaporan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 
 class KoperasiController extends Controller
@@ -82,7 +84,7 @@ class KoperasiController extends Controller
                 }
 
 
-                Koperasi::create([
+                $koperasi = Koperasi::create([
                     'user_id' => $user->id,
                     'badan_hukum_tanggal' => $request->badan_hukum_tanggal,
                     'badan_hukum_nomor' => $request->badan_hukum_nomor,
@@ -108,6 +110,16 @@ class KoperasiController extends Controller
                     'bentuk' => $request->bentuk,
                     'jenis' => $request->jenis,
                     'isaktif' => $isaktif,
+                ]);
+
+                $periode = Periode::where('tahun', '201')->first();
+
+                Pelaporan::create([
+                    'keterangan' => "Ini Laporan Default, Abaikan saja",
+                    'file' => "WELCOME TO OUR APPLICATION.pdf",
+                    'periode_id' => $periode->id,
+                    'koperasi_id' => $koperasi->id,
+                    'status' => 0
                 ]);
 
 

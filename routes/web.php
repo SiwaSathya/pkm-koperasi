@@ -29,13 +29,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('periode', PeriodeController::class);
     Route::resource('profile', ProfileController::class);
 });
-Route::get('/pelaporan-detail/{id}', [PelaporanController::class, 'detail'])->name('pelaporan.detail');
-Route::get('/pelaporan-detail-api/{id}', [PelaporanController::class, 'detail_api']);
-Route::get('/periode-set-to-not-null', [PeriodeController::class, 'setDeletedatNotNull'])->name('periode.setToNotNull');
+Route::get('/pelaporan-detail/{id}', [PelaporanController::class, 'detail'])->name('pelaporan.detail')->middleware('auth');;
+Route::get('/pelaporan-detail-api/{id}', [PelaporanController::class, 'detail_api'])->middleware('auth');;
+Route::get('/periode-set-to-not-null', [PeriodeController::class, 'setDeletedatNotNull'])->name('periode.setToNotNull')->middleware('auth');;
 Route::post('/show-laporan-not-null/{id}', [PelaporanController::class, 'showPelaporan'])->name('pelaporan.filters');
 Route::post('/laporan-update-approve', [PelaporanController::class, 'updateRevisi'])->name('pelaporan.approve');
 Route::post('/laporan-update-revisi', [PelaporanController::class, 'updateRevisiTrue'])->name('pelaporan.revisi');
-Route::get('/show-profile/{id}', [ProfileController::class, 'showDetail'])->name('profile.detail');
+Route::get('/show-profile/{id}', [ProfileController::class, 'showDetail'])->name('profile.detail')->middleware('auth');;
 Route::post('/update-revisi', [PelaporanController::class, 'updateRevisiToZero'])->name('update.revisi');
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('/actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');

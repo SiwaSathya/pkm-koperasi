@@ -254,7 +254,6 @@ class PelaporanController extends Controller
         }
 
         Alert::success('Berhasil', 'Laporan Berhasil Ditambahkan');
-        // Redirect ke halaman index
         return redirect()->route('profile.detail', ['id' => $profile->id]);
     }catch (\Exception $e) {
     Alert::error('Gagal', 'Laporan Gagal Ditambahkan: ' . $e->getMessage());
