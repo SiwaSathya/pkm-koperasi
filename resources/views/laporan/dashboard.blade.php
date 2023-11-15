@@ -203,7 +203,7 @@
                     <div class="tab-content p-0">
                       <!-- Morris chart - Sales -->
                       <div class="chart tab-pane active" >
-                           <canvas id="bar-chart-jenis" width="1000" height="200"></canvas>
+                           <canvas id="bar-chart-jenis" width="1000" height="550"></canvas>
                        </div>
                       <div class="chart tab-pane" style="position: relative; height: 300px;">
                         <!-- <canvas id="bar-chart-kelompok" width="800" height="450"></canvas> -->
@@ -255,6 +255,7 @@
         kelompok();
         sektor();
         bentuk();
+        jenis();
     });
     function kelompok() {
         $.ajax({
@@ -287,6 +288,18 @@
                 data: {tipe:'bentuk',_token: "{{ csrf_token() }}"},
                 success: function (data) {
                 barChart(data,'Bentuk Koperasi','bar-chart-bentuk');
+                }
+            });
+    }
+
+    function jenis() {
+        $.ajax({
+                dataType : "json",
+                type: 'post',
+                url:"{{ route('pelaporan.chart') }}",
+                data: {tipe:'jenis',_token: "{{ csrf_token() }}"},
+                success: function (data) {
+                lineChart(data,'Jenis Koperasi','bar-chart-jenis');
                 }
             });
     }
@@ -386,11 +399,126 @@ var ctx = document.getElementById(element);
           scales: {
         yAxes: [{
             ticks: {
+                beginAtZero: true,
+                beginAtZero: true,
+          callback: function(value) {if (value % 1 === 0) {return value;}}
+            },
+        }]
+    },
+      legend: { display: false },
+      plugins: {
+					colorschemes: {
+						scheme: 'brewer.Paired12'
+					}
+				},
+      title: {
+        display: true,
+        text: label
+      }
+    }
+    });
+  }
+
+
+
+  function lineChart(data,label,element){
+    var labels = data.datas.map(function(e) {
+         return e.label;
+      });
+      var datas = data.datas.map(function(e) {
+         return e.data;
+      });
+     
+
+    var barOptions_stacked = {
+      plugins: {
+					colorschemes: {
+						scheme: 'brewer.Paired12'
+					}
+				},
+    tooltips: {
+        enabled: true
+    },
+    hover :{
+        animationDuration:0
+    },
+    scales: {
+        xAxes: [{
+          categorySpacing: 0,
+            ticks: {
+                beginAtZero:true,
+                fontFamily: "'Open Sans Bold', sans-serif",
+                fontSize:5
+            },
+            scaleLabel:{
+                display:false
+            },
+            gridLines: {
+                display:false,
+            }, 
+            stacked: false
+        }],
+        yAxes: [{
+            gridLines: {
+                drawBorder: false,
+                display:false,
+            },
+        }]
+    },
+    legend:{
+        display:false
+    },
+    
+    animation: {
+        onComplete: function () {
+            var chartInstance = this.chart;
+            var ctx = chartInstance.ctx;
+            ctx.textAlign = "left";
+            ctx.font = "18px Open Sans";
+            ctx.fillStyle = "#fff";
+            Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                var meta = chartInstance.controller.getDatasetMeta(i);
+                Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                    data = dataset.data[index];
+                    if(i==0){
+                        ctx.fillText(data, bar._model.x-10, bar._model.y+20);
+                    } else {
+                        ctx.fillText(data, bar._model.x-10, bar._model.y+20);
+                    }
+                }),this)
+            }),this);
+        }
+    },
+    pointLabelFontFamily : "Quadon Extra Bold",
+    scaleFontFamily : "Quadon Extra Bold",
+};
+
+var ctx = document.getElementById(element);
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: datas,
+                 backgroundColor: [
+                    "rgb(34,139,34)",
+                    "rgb(135,206,235)",
+                    "rgb(70,130,180)",
+                    "rgb(102,205,170)",
+                    "rgb(240,128,128)"
+                ],
+                fill: false
+            }]
+        },
+        options: {
+          scales: {
+        yAxes: [{
+            ticks: {
                 beginAtZero: true
             }
         }]
     },
-      legend: { display: false },
+      legend: { display: true },
       plugins: {
 					colorschemes: {
 						scheme: 'brewer.Paired12'
