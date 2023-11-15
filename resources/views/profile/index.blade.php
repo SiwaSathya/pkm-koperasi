@@ -95,6 +95,9 @@
 <div class="card-body">
 <div class="tab-content">
 <div class="active tab-pane" id="activity">
+
+    @if ($pelaporanRev->isNotEmpty())
+    @dd('joss');
 @foreach($pelaporanRev as $pelaporan)
 <div class="post">
     <div class="user-block">
@@ -126,6 +129,7 @@
 
 </div>
 @endforeach
+@endif
 
 
 
@@ -209,6 +213,8 @@
     $previousPeriodeId = null;
 @endphp
 
+@if ($pelaporanTimeLine->isNotEmpty())
+
 @foreach ($pelaporanTimeLine as $pelaporan)
 
 
@@ -223,6 +229,8 @@
 
 
 <div>
+    @if ($pelaporanTimeLine->isNotEmpty())
+    @dd('jos')
 @if ($pelaporan->periode_id != $previousPeriodeId)
 <i class="fas fa-envelope bg-primary"></i>
 @else
@@ -239,6 +247,7 @@
 </div>
 </div>
 </div>
+@endif
 
 
 <div id="env-data" data-api="{{ env('KOPERASI_API') }}"></div>
@@ -258,6 +267,8 @@
     $previousPeriodeId = $pelaporan->periode_id;
 @endphp
 @endforeach
+@endif
+
 
 </div>
 
@@ -330,7 +341,10 @@
             @csrf
             <div class="form-group row">
                 <div class="col-sm-6">
-                  <input type="hidden" value="{{$pelaporan->id}}" name="id" id="input_id" class="form-control" id="firstName" required>
+                    @if ($pelaporanTimeLine->isNotEmpty())
+                    <input type="hidden" value="{{$pelaporan->id}}" name="id" id="input_id" class="form-control" id="firstName" required>
+                    @endif
+                 
                 </div>
               </div>
             <div class="form-group row">
