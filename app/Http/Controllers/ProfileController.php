@@ -37,14 +37,18 @@ class ProfileController extends Controller
         if (!empty($records) && $user->role == "user"){
             Alert::toast('Periode Telah Dibuka','info');
         }elseif(empty($records) && $user->role == "user"){
-            Alert::toast('Periode Belum Dibuka','info');
+            // Alert::toast('Periode Belum Dibuka','info');
 
         }
-        $profile = Koperasi::where('user_id', $user->id)->first();
+        $profile = Koperasi::where('user_id', $id)->first();
+        if (empty($profile)) {
+            $profile = Koperasi::where('id', $id)->first();
+        }
+        //   dd($profile);
         $tittle = "Profile";
-        $koperasis = Koperasi::find($id);
+        $koperasis = Koperasi::find($profile->id);
         $pelaporan = Pelaporan::where('koperasi_id', $id)->with('periode')->get();
-        $pelaporanTimeLine = Pelaporan::where('koperasi_id', $id)
+        $pelaporanTimeLine = Pelaporan::where('koperasi_id', $profile->id)
         ->with(['periode' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }])

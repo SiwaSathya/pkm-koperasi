@@ -42,7 +42,6 @@
 <b>Jumlah Laporan</b> <a class="float-right">{{count($pelaporan)}}</a>
 </li>
 </ul>
-<button class="btn btn-primary btn-block" disabled><b>-</b></button>
 </div>
 
 </div>
@@ -79,6 +78,7 @@
 
 </div>
 
+
 </div>
 
 <div class="col-md-9">
@@ -103,7 +103,7 @@
         <a href="#">{{$pelaporan->koperasi->users->name}}</a>
         <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
         </span>
-        <span class="description">Periode {{$pelaporan->periode->tgl_awal}} s/d {{$pelaporan->periode->tgl_akhir}}</span>
+        <span class="description">Periode {{Carbon\Carbon::parse($pelaporan->periode->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($pelaporan->periode->tgl_akhir)->format('d-m-Y')}}</span>
     </div>
 
     <p>
@@ -216,7 +216,7 @@
 <div class="time-label">
 @if ($pelaporan->periode_id != $previousPeriodeId)
 <span class="bg-danger">
-{{$pelaporan->periode->tgl_awal}} s/d {{$pelaporan->periode->tgl_akhir}}
+{{Carbon\Carbon::parse($pelaporan->periode->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($pelaporan->periode->tgl_akhir)->format('d-m-Y')}}
 </span>
 @endif
 </div>
@@ -229,7 +229,7 @@
 <i class="fas fa-comment bg-info"></i>
 @endif
 <div class="timeline-item">
-<span class="time"><i class="far fa-clock"></i>{{$pelaporan->created_at}}</span>
+<span class="time"><i class="far fa-clock"></i> {{Carbon\Carbon::parse($pelaporan->created_at)->format('d-m-Y')}}</span>
 <h3 class="timeline-header"><a href="#">Koperasi</a> {{$pelaporan->koperasi->users->name}}</h3>
 <div class="timeline-body">
 {{$pelaporan->keterangan}}
@@ -362,6 +362,7 @@
         </div>
     </div>
 </div>
+
 
 
 <script>

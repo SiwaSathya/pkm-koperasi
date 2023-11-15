@@ -53,15 +53,16 @@
     <div class="card">
     <div class="card-header">
 @if($records != null)
-    <h3 class="card-title">Data Pelaporan Koperasi Periode <b> {{$records->tgl_awal}} s/d {{$records->tgl_akhir}}</b></h3>
+    <h3 class="card-title">Data Pelaporan Koperasi Periode <b> {{Carbon\Carbon::parse($records->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($records->tgl_akhir)->format('d-m-Y')}}</b></h3>
 @elseif($periode != null)
-    <h3 class="card-title">Data Pelaporan Koperasi Periode <b>{{$periode->tgl_awal}} s/d {{$periode->tgl_akhir}}</b></h3>
+    <h3 class="card-title">$periode->tgl_akhir}}</b></h3>
 @else
     <h3 class="card-title">Data Pelaporan Koperasi</h3>
+    <button id="btnStart" type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" style="float: right;" ><i class="fa fa-calendar" ></i>  Set Periode</button>
 @endif
     </div>
 @if($records == null && $periode == null)
-    <button id="btnStart" type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" style="">Set Periode</button>
+    
     <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
         <div class="modal-content ">
@@ -127,7 +128,7 @@
     <tr>
         <td>{{ $koperasi->users->name}}</td>
         <td>
-            <a href="{{ route('pelaporan.koperasi', ['id' => $koperasi->id]) }}"><button type="button" class="btn btn-info">lihat Pelaporan</button></a>
+            <a href="{{ route('pelaporan.koperasi', ['id' => $koperasi->id]) }}"><button type="button" class="btn btn-info"><i class="fa fa-file" ></i> lihat </button></a>
         </td>
         </tr>
     @endforeach
@@ -136,7 +137,7 @@
 <tr>
 <td>{{ $koperasi->users->name}}</td>
 <td style="width: 10%">
-    <a href="{{ route('pelaporan.koperasi', ['id' => $koperasi->id]) }}"><button type="button" class="btn btn-info">lihat Pelaporan</button></a>
+    <a href="{{ route('pelaporan.koperasi', ['id' => $koperasi->id]) }}"><button type="button" class="btn btn-info btn-xs"> <i class="fa fa-file" ></i> Lihat</button></a>
 </td>
 </tr>
 @endforeach

@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap demo</title>
+        <title>Pelaporan</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         @push('css')
         <!-- Bootstrap Color Picker -->
@@ -33,10 +33,16 @@
 @if(count($periode)>0 && $user->role != "admin")
     <body class="">
         <!-- resources/views/multiple-file-upload.blade.php -->
+        {{-- <div class="card card-primary"> --}}
+          {{-- <div class="card-header">
+            <h5 class="card-title">Unggah Pelaporan</h5>  
+          </div> --}}
+      
+        <div class="card-body">
         <form action="{{route('pelaporan.store')}}" method="POST" enctype="multipart/form-data"  >
-            <div class="d-flex flex-column p-5 shadow rounded" style="max-width: 80%; margin:50px auto; margin-left:17%;">
+            <div class="d-flex flex-column p-5 shadow rounded" style="max-width: 80%; margin-left:17%;">
             @csrf
-            <h5  class="mb-4">Fitur Multi Upload</h5>
+            <h5  class="mb-4">Unggah Pelaporan</h5>
                 <!-- First File Input Field -->
                 <div class="mb-3 d-flex flex-column">
                     <label for="formFile" class="form-label">Tambah Input</label>
@@ -61,10 +67,12 @@
 
 
             <!-- Submit Button -->
-            <button class="btn btn-primary" type="submit">Add File</button>
+            <button class="btn btn-primary" type="submit"> <i class="fa fa-paper-plane" ></i> Ajukan Pelaporan</button>
         </div>
 
         </form>
+      {{-- </div>
+    </div> --}}
 @elseif($user->role == "admin")
 <div class="content-wrapper">
 
@@ -116,7 +124,7 @@
     <div class="float-right d-none d-sm-block">
     <b>Version</b> 3.2.0
     </div>
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2023 <a href="https://adminlte.io">PAKSI TABANAN</a>.</strong> All rights reserved.
     </footer>
 
     <aside class="control-sidebar control-sidebar-dark">
@@ -176,7 +184,7 @@
             <div class="float-right d-none d-sm-block">
             <b>Version</b> 3.2.0
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2023 <a href="https://adminlte.io">PAKSI TABANAN</a>.</strong> All rights reserved.
             </footer>
 
             <aside class="control-sidebar control-sidebar-dark">

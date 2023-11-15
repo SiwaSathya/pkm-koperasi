@@ -2,23 +2,23 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src={{asset("asset/images/koperasi.png")}} alt="AdminLTE Logo" class="brand-image img-circle " style="opacity: .8">
-      <span class="brand-text font-weight-light">PKM KOPERASI</span>
+      <span class="brand-text font-weight-light">PAKSI TABANAN</span> 
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel  mb-3 d-flex">
         <div class="image">
           {{-- <img src={{asset("asset/dist/img/user2-160x160.jpg")}} class="img-circle elevation-2" alt="User Image"> --}}
         </div>
         @if($user->role == 'user')
         <div class="info">
-          <a href="{{ route('profile.detail', ['id' => $profile->id]) }}" class="d-block">Hello, {{$user->name}}</a>
+          <a class="d-block">Hello, {{$user->name}}</a>
         </div>
         @else
         <div class="info">
-            <a href="#" class="d-block">Hello, {{$user->name}}</a>
+            <a href="#" class="d-block"><i class="fa fa-user" > </i> {{$user->name}}</a>
           </div>
         @endif
       </div>
@@ -50,12 +50,19 @@
             </a>
             <ul class="nav nav-treeview">
             @if($user->role == 'user')
+            <li class="nav-item">
+              <a href="{{route('profile.detail', ['id' => auth()->user()->id]) }}" class="nav-link {{'show-profile' == request()->segment(1) ? 'active': ''}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Data Profile</p>
+              </a>
+            </li>
               <li class="nav-item">
                 <a href="{{route('pelaporan.create')}}" class="nav-link {{'pelaporan/create' == request()->path() ? 'active': ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kirim Laporan</p>
                 </a>
               </li>
+              
               @else
               <li class="nav-item">
                 <a href="{{route('koperasi.index')}}" class="nav-link {{'koperasi' == request()->path() ? 'active': ''}}">
@@ -67,6 +74,12 @@
                 <a href="{{route('pelaporan.index')}}" class="nav-link {{'pelaporan' == request()->path() ? 'active': ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Pelaporan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('pelaporan.dashboard')}}" class="nav-link {{'dashboard' == request()->path() ? 'active': ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard</p>
                 </a>
               </li>
             </ul>

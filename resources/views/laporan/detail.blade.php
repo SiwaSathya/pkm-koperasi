@@ -15,12 +15,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Compose</h1>
+            <h1>File Pelaporan</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Compose</li>
+              <li class="breadcrumb-item active">File Pelaporan</li>
             </ol>
           </div>
         </div>
@@ -32,98 +32,36 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
-            <a href="javascript:history.back()"  class="btn btn-primary btn-block mb-3">Kembali Ke Halaman Awal</a>
+            <a href="javascript:history.back()"  class="btn btn-primary btn-block mb-2"><i class="fa fa-backward" ></i> Kembali Ke Halaman Awal</a>
 
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Folders</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <ul class="nav nav-pills flex-column">
-                  <li class="nav-item active">
-                    <a href="#" class="nav-link">
-                      <i class="fas fa-inbox"></i> Coming Soon
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-envelope"></i> Coming Soon
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-file-alt"></i> Coming Soon
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="fas fa-filter"></i> Coming Soon
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-trash-alt"></i> Coming Soon
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Labels</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <ul class="nav nav-pills flex-column">
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="far fa-circle text-danger"></i> Coming Soon</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="far fa-circle text-warning"></i> Coming Soon</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="far fa-circle text-primary"></i> Coming Soon</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- /.card-body -->
-            </div>
             <!-- /.card -->
           </div>
+        </div>
+        <div class="row">
+          
           <!-- /.col -->
-        <div class="col-md-9">
+        <div class="col-md-12">
           <div class="card card-primary card-outline">
             <div class="card-header">
               <h3 class="card-title">Laporan</h3>
 
               <div class="card-tools">
-                <a href="#" class="btn btn-tool" title="Previous"><i class="fas fa-chevron-left"></i></a>
-                <a href="#" class="btn btn-tool" title="Next"><i class="fas fa-chevron-right"></i></a>
+                @if($records != null)
+                <span class="mailbox-read-time float-right">periode:{{Carbon\Carbon::parse($periode->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($periode->tgl_akhir)->format('d-m-Y')}}</span></h6>
+                @else
+                <span class="mailbox-read-time float-right">periode: {{Carbon\Carbon::parse($periode->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($periode->tgl_akhir)->format('d-m-Y')}}</span></h6>
+                @endif
               </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">
               <div class="mailbox-read-info">
                 <h5><b>Pelapor: </b> {{$pelaporans->koperasi->users->name}}</h5>
-                    @if($records != null)
+                    {{-- @if($records != null)
                   <span class="mailbox-read-time float-right">periode: {{$records->tgl_awal}} s/d {{$records->tgl_akhir}}</span></h6>
                   @else
                   <span class="mailbox-read-time float-right">periode: {{$periode->tgl_awal}} s/d {{$periode->tgl_akhir}}</span></h6>
-                  @endif
+                  @endif --}}
               </div>
               <!-- /.mailbox-read-info -->
               {{-- <div class="mailbox-controls with-border text-center">

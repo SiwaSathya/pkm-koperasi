@@ -30,7 +30,7 @@
     <div class="container-fluid">
     <div class="row mb-2">
     <div class="col-sm-6">
-    <h1>Pelaporan</h1>
+    <h1>Pelaporan {{$profile->nama_koperasi}}</h1> 
     </div>
     <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
@@ -53,15 +53,15 @@
     <div class="card">
     <div class="card-header">
 @if($records != null)
-    <h3 class="card-title">Data Pelaporan Koperasi Periode <b> {{$records->tgl_awal}} s/d {{$records->tgl_akhir}}</b></h3>
+    <h3 class="card-title">Data Pelaporan Koperasi Periode <b> {{Carbon\Carbon::parse($records->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($records->tgl_akhir)->format('d-m-Y')}}</b></h3>
 @elseif($periode != null)
-    <h3 class="card-title">Data Pelaporan Koperasi Periode <b>{{$periode->tgl_awal}} s/d {{$periode->tgl_akhir}}</b></h3>
+    <h3 class="card-title">Data Pelaporan Koperasi Periode <b>{{Carbon\Carbon::parse($periode->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($periode->tgl_akhir)->format('d-m-Y')}}</b></h3>
 @else
     <h3 class="card-title">Data Pelaporan Koperasi</h3>
 @endif
     </div>
 @if($records == null && $periode == null)
-    <button id="btnStart" type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" style="">Set Periode</button>
+    {{-- <button id="btnStart" type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" style="">Set Periode</button> --}}
     <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
         <div class="modal-content ">
@@ -114,19 +114,31 @@
 <a href="{{route('periode.setToNotNull')}}" class="btn btn-danger" data-confirm-periode="true">Akhiri Periode</a>
 @endif
 @if($records == null)
-<form action="{{route('pelaporan.filters', ['id' => $id])}}" method="POST"  enctype="multipart/form-data">
-    @csrf
-<div class="form-group" style="max-width: 20%;  text-align:center; margin:auto;">
-    <label class="mt-2" for="selectData">Pilih Filter Periode:</label>
-    <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="selectData" name="periode_id">
-        <option value="">Tampilkan Semua</option>
-        @foreach ($periodenotnull as $data)
-            <option value="{{ $data->id }}">{{ $data->tgl_awal }} s/d {{$data->tgl_akhir}}</option>
-        @endforeach
-    </select>
-    <button type="submit" class="btn btn-primary mt-3">Filter</button>
+
+<div class="row">
+    <div class="col-12" style="float: left;">
+        <form action="{{route('pelaporan.filters', ['id' => $id])}}" method="POST"  enctype="multipart/form-data">
+            @csrf
+            <div class="row ml-1">
+                <div class="col-md-4">
+                    <label class="mt-2" for="selectData"> Periode:</label>
+                    <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="selectData" name="periode_id">
+                        <option value="">Tampilkan Semua</option>
+                        @foreach ($periodenotnull as $data)
+                            <option value="{{ $data->id }}">{{ Carbon\Carbon::parse($data->tgl_awal)->format('d-m-Y') }} s/d {{Carbon\Carbon::parse($data->tgl_akhir)->format('d-m-Y')}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary"  style="margin-top: 40px;"><i class="fa fa-filter" ></i>  Filter</button>
+                </div>
+            </div>
+            
+            
+        </form>
+    </div>
 </div>
-</form>
+
 @endif
     <div class="card-body">
     <table id="example1" class="table table-bordered table-striped">
@@ -135,7 +147,7 @@
     <th>Nama Koperasi</th>
     <th>Periode</th>
     <th>Keterangan</th>
-    <th>File</th>
+    <th>Status</th>
     <th>Aksi</th>
     </tr>
     </thead>
@@ -144,18 +156,18 @@
     @foreach ($pelaporans as $pelaporan)
     <tr>
     <td>{{ $pelaporan->koperasi->users->name }}</td>
-    <td>{{$pelaporan->periode->tgl_awal}} s/d {{$pelaporan->periode->tgl_akhir}}</td>
+    <td>{{Carbon\Carbon::parse($pelaporan->periode->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($pelaporan->periode->tgl_akhir)->format('d-m-Y')}}</td>
     <td>{{ $pelaporan->keterangan }}</td>
     <td>{{ $pelaporan->file }}</td>
     <td>
         @if ( $pelaporan->status == 1)
-        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info btn-xs"> <i class="fa fa-edit" ></i> Verifikasi</button></a>
         <button class="btn btn-success" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Disetujui</button>
         @elseif ($pelaporan->status == 2)
-        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info btn-xs">Verifikasi</button></a>
         <button class="btn btn-warning" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Revisi</button>
         @else
-        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+        <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-info" ></i> Info</button></a>
         @endif
     </td>
     </tr>
@@ -164,18 +176,24 @@
 @foreach ($pelaporanAll as $pelaporan)
 <tr>
 <td>{{ $pelaporan->koperasi->users->name}}</td>
-<td>{{$pelaporan->periode->tgl_awal}} s/d {{$pelaporan->periode->tgl_akhir}}</td>
+<td>{{Carbon\Carbon::parse($pelaporan->periode->tgl_awal)->format('d-m-Y')}} s/d {{Carbon\Carbon::parse($pelaporan->periode->tgl_akhir)->format('d-m-Y')}}</td>
 <td>{{ $pelaporan->keterangan }}</td>
-<td>{{ $pelaporan->file }}</td>
+@if ( $pelaporan->status == 1)
+<td  class="badge-success" ><p>Disetujui</p></td>
+@elseif ($pelaporan->status == 2)
+<td class="badge-warning"><p>Revisi</p></td>
+@else
+<td><p>Belum Diverifikasi</p></td>
+@endif
 <td>
     @if ( $pelaporan->status == 1)
-    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
-    <button class="btn btn-success" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Approved</button>
+    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-file" ></i> File</button></a>
+    {{-- <button class="btn btn-success" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Approved</button> --}}
     @elseif ($pelaporan->status == 2)
-    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
-    <button class="btn btn-warning" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Revisi</button>
+    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-file" ></i> File</button></a>
+    {{-- <button class="btn btn-warning" id="btnStart" type="button" disabled><i class="far fa-check-circle" ></i> Revisi</button> --}}
     @else
-    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+    <a href="{{ route('pelaporan.detail', ['id' => $pelaporan->id]) }}"><button type="button" class="btn btn-info btn-xs"> <i class="fa fa-file" ></i> File</button></a>
     @endif
 </td>
 </tr>

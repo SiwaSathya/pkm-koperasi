@@ -31,12 +31,12 @@
     <div class="container-fluid">
     <div class="row mb-2">
     <div class="col-sm-6">
-    <h1>DataTables</h1>
+    <h1>Koperasi</h1>
     </div>
     <div class="col-sm-6">
     <ol class="breadcrumb float-sm-right">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active">DataTables</li>
+    <li class="breadcrumb-item active">Data Koperasi</li>
     </ol>
     </div>
     </div>
@@ -54,11 +54,12 @@
     <div class="card">
     <div class="card-header">
     <h3 class="card-title">Data Koperasi</h3>
+    <button id="btnStart" type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" style="float: right;" > <i  class="fa fa-home"></i> Tambah Koperasi</button>
     </div>
 
     <!-- Button trigger modal -->
 <!-- Modal -->
-<button id="btnStart" type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">Tambah Akun Koperasi</button>
+{{-- <button id="btnStart" type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">Tambah Akun Koperasi</button> --}}
 <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
     <div class="modal-content ">
@@ -323,15 +324,15 @@
     <tbody>
     @foreach ($koperasis as $koperasi)
     <tr>
-    <td>{{$koperasi->users->name}}</td>
+    <td>{{$koperasi->nama_koperasi}}</td>
     <td>{{$koperasi->users->email}}</td>
     <td>{{$koperasi->badan_hukum_tanggal}}</td>
     <td>{{$koperasi->badan_hukum_nomor}}</td>
     <td>{{$koperasi->badan_hukum_pengesahan_id}}</td>
     <td>
-         <a href="{{ route('profile.detail', ['id' => $koperasi->id]) }}"><button type="button" class="btn btn-info">Info</button></a>
+         <a href="{{ route('profile.detail', ['id' => $koperasi->id]) }}"> <button type="button" class="btn btn-info  btn-xs"> <i  class="fa fa-info"></i>  Info</button></a> <br> <br>
          @if($koperasi->isaktif == 0)
-         <a href="{{ route('pelaporan.detail', ['id' => $koperasi->id]) }}"><button type="button" class="btn btn-danger" disabled>Delete</button></a>
+         <a href="{{ route('pelaporan.detail', ['id' => $koperasi->id]) }}"> <button type="button" class="btn btn-danger btn-xs" disabled> <i  class="fa fa-trash"></i> Delete</button></a>
          @endif
     </td>
     </tr>

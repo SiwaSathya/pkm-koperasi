@@ -29,6 +29,7 @@ class KoperasiController extends Controller
             return redirect()->route('profile.detail',['id' => $koperasi->id]);
         }
         $koperasis = Koperasi::get();
+        // dd($koperasis);
         $tittle = "Koperasi";
         return view('koperasi.index', ['tittle' => $tittle, 'koperasis' => $koperasis, 'user' => $user, 'profile' => $profile]);
     }
@@ -86,6 +87,7 @@ class KoperasiController extends Controller
 
                 $koperasi = Koperasi::create([
                     'user_id' => $user->id,
+                    'nama_koperasi' => $request->nama_koperasi,
                     'badan_hukum_tanggal' => $request->badan_hukum_tanggal,
                     'badan_hukum_nomor' => $request->badan_hukum_nomor,
                     'badan_hukum_pengesahan_id' => $request->badan_hukum_pengesahan_id,
@@ -94,7 +96,7 @@ class KoperasiController extends Controller
                     'npwp' => $request->npwp,
                     'alamat' => $request->alamat,
                     'provinsi' => $request->provinsi,
-                    'kabupaten_kota' => $request->kabupaten,
+                    'kabupaten_kota' =>'Kabupaten Tabanan',// $request->kabupaten,
                     'kecamatan' => $request->kecamatan,
                     'kelurahan_desa' => $request->kelurahan,
                     'kode_pos' => $request->kode_pos,

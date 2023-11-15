@@ -45,6 +45,25 @@ class PelaporanController extends Controller
         // return view('laporan.detail', with(['tittle'=>$tittle]), ['pelaporans'=>$pelaporans, 'records'=> $records, 'periode'=>$periode, 'user'=>$user, 'profile'=>$profile]);
      }
 
+     public function dashboard(){
+        $tittle = "Dashboard";
+        $user = auth()->user();
+        $periode = Periode::whereNull('deleted_at')->first();
+        $pelaporan = Pelaporan::where('periode_id',$periode->id)->groupBy('koperasi_id')->get();
+        // dd($pelaporan);
+        $koperasi = Koperasi::get();
+        return view('laporan.dashboard',['pelaporan' => $pelaporan,'koperasi' => $koperasi,'tittle' => $tittle,'user' => $user,]);
+     }
+
+     public function chart(Request $request){
+        $tipe = $request->tipe;
+           $data = Koperasi::selectRaw(" ".$tipe." as label,count(id) as data")
+           ->groupBy($tipe)
+           ->orderBy($tipe)
+           ->get();
+        return response()->json(['datas'=>$data]);
+     }
+     
 
     public function index(){
         $user = auth()->user();
@@ -66,7 +85,7 @@ class PelaporanController extends Controller
         $title = 'Akhiri Periode';
         $text = "Apakah anda yakin untuk mengakhiri periode?";
         $periodenotnull = Periode::whereNotNull('deleted_at')->get();
-        confirmPeriode($title, $text);
+        // confirmPeriode($title, $text);
         return view('laporan.index', ['pelaporanData' => $pelaporanData, 'koperasis' => $koperasis, 'records' => $records, 'periodenotnull' => $periodenotnull, 'periode' => $periode, 'tittle' => $tittle, 'user' => $user, 'koperasisLaporanNull' => $koperasisLaporanNull]);
 
 
@@ -76,7 +95,7 @@ class PelaporanController extends Controller
     {
         $active = "active";
         $user = auth()->user();
-        $profile = Koperasi::where('user_id', $user->id)->first();
+        $profile = Koperasi::where('id', $id)->first();
         if ($user->role == 'user'){
             $koperasi = Koperasi::where('user_id', $user->id)->first();
             return redirect()->route('profile.detail',['id' => $koperasi->id]);
@@ -85,7 +104,7 @@ class PelaporanController extends Controller
             $query->whereNull('deleted_at');
         })->where('koperasi_id', '=', $id)->get();
         $pelaporanAll = Pelaporan::where('koperasi_id', $id)->get();
-        // dd($pelaporanAll);
+        
         $periode_id = "0";
         $periode = Periode::where('id', $periode_id)->first();
         $tittle = "Pelaporan";
@@ -93,7 +112,7 @@ class PelaporanController extends Controller
         $title = 'Akhiri Periode';
         $text = "Apakah anda yakin untuk mengakhiri periode?";
         $periodenotnull = Periode::whereNotNull('deleted_at')->get();
-        confirmPeriode($title, $text);
+        // confirmPeriode($title, $text);
         return view('laporan.koperasi', with(['tittle' => $tittle]), ['pelaporans'=>$pelaporans, 'records'=> $records, 'periodenotnull' => $periodenotnull, 'periode' => $periode, 'pelaporanAll' => $pelaporanAll, 'user'=>$user, 'active' => $active, 'profile' => $profile, 'id' => $id]);
     }
 
@@ -194,7 +213,7 @@ class PelaporanController extends Controller
         $periode = Periode::where('id', $request->periode_id)->first();
         $title = 'Akhiri Periode';
         $text = "Apakah anda yakin untuk mengakhiri periode?";
-        confirmPeriode($title, $text);
+        // confirmPeriode($title, $text);
         $periodenotnull = Periode::whereNotNull('deleted_at')->get();
         return view('laporan.koperasi', with(['tittle' => $tittle]), ['pelaporanAll'=>$pelaporanAll, 'records'=> $records, 'periodenotnull' => $periodenotnull, 'periode' => $periode, 'user' => $user, 'id' => $id]);
     }
@@ -256,7 +275,7 @@ class PelaporanController extends Controller
         }
 
         Alert::success('Berhasil', 'Laporan Berhasil Ditambahkan');
-        return redirect()->route('profile.detail', ['id' => $profile->id]);
+        return redirect()->route('profile.detail', ['id' => $user->id]);
     }catch (\Exception $e) {
     Alert::error('Gagal', 'Laporan Gagal Ditambahkan: ' . $e->getMessage());
     return redirect()->back();

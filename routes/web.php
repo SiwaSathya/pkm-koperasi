@@ -29,7 +29,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('periode', PeriodeController::class);
     Route::resource('profile', ProfileController::class);
 });
-Route::get('/pelaporan-detail/{id}', [PelaporanController::class, 'detail'])->name('pelaporan.detail')->middleware('auth');;
+Route::get('/dashboard', [PelaporanController::class, 'dashboard'])->name('pelaporan.dashboard')->middleware('auth');
+Route::post('/chart', [PelaporanController::class, 'chart'])->name('pelaporan.chart')->middleware('auth');
+Route::get('/pelaporan-detail/{id}', [PelaporanController::class, 'detail'])->name('pelaporan.detail')->middleware('auth');
 Route::get('/pelaporan-detail-api/{id}', [PelaporanController::class, 'detail_api'])->middleware('auth');;
 Route::get('/periode-set-to-not-null', [PeriodeController::class, 'setDeletedatNotNull'])->name('periode.setToNotNull')->middleware('auth');;
 Route::post('/show-laporan-not-null/{id}', [PelaporanController::class, 'showPelaporan'])->name('pelaporan.filters');
