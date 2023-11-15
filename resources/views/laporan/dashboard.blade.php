@@ -181,7 +181,7 @@
                       <!-- Morris chart - Sales -->
                       <div class="chart tab-pane active" id="revenue-chart"
                            style="position: relative; height: 300px;">
-                           <canvas id="bar-chart-sektor" width="800" height="450"></canvas>
+                           <canvas id="bar-chart-sektor" width="1000" height="450"></canvas>
                        </div>
                       <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
                         <!-- <canvas id="bar-chart-kelompok" width="800" height="450"></canvas> -->
