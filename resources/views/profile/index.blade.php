@@ -97,7 +97,6 @@
 <div class="active tab-pane" id="activity">
 
     @if ($pelaporanRev->isNotEmpty())
-    @dd('joss');
 @foreach($pelaporanRev as $pelaporan)
 <div class="post">
     <div class="user-block">
@@ -230,7 +229,6 @@
 
 <div>
     @if ($pelaporanTimeLine->isNotEmpty())
-    @dd('jos')
 @if ($pelaporan->periode_id != $previousPeriodeId)
 <i class="fas fa-envelope bg-primary"></i>
 @else
