@@ -383,6 +383,13 @@ var ctx = document.getElementById(element);
             }]
         },
         options: {
+          scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    },
       legend: { display: false },
       plugins: {
 					colorschemes: {
